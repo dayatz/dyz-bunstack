@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "portless dashboard.dyz-bunstack vite dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check"
   },
   "dependencies": {
     "@dyz-bunstack-app/ui": "workspace:*",

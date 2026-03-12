@@ -1,5 +1,5 @@
 export { Button, buttonVariants } from "./components/button";
-export { ErrorBoundary } from "./components/error-boundary";
+export { ErrorBoundary, RouteErrorDisplay } from "./components/error-boundary";
 export { Input } from "./components/input";
 export { Label } from "./components/label";
 export { Skeleton } from "./components/skeleton";

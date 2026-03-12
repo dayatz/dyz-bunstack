@@ -336,7 +336,11 @@ Use `make`:
 <!-- <<DASHBOARD -->
 - `make dev-all` — all apps
 - `make install` — bun install
+- `make check` — typecheck + lint all apps
+- `make module name=<name> app=<web|dashboard|server|all>` — scaffold a feature module
 <!-- >>BACKEND -->
+- `make reset` — nuke DB + re-push schema + re-seed (clean slate)
+- `make logs` — tail Docker container logs
 - `make db-generate` — generate Drizzle migrations
 - `make db-migrate` — run migrations
 - `make db-push` — push schema to DB (no migration files)

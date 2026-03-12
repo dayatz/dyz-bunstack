@@ -6,13 +6,14 @@ import { Agentation } from "agentation";
 import { ErrorBoundary, Toaster } from "@dyz-bunstack-app/ui";
 import Header from "#/components/Header";
 import Footer from "#/components/Footer";
+import { RouteError } from "#/components/route-error";
 
 import "../styles.css";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
     component: RootComponent,
-    errorComponent: RouteErrorFallback,
+    errorComponent: RouteError,
   },
 );
 
@@ -43,20 +44,3 @@ function RootComponent() {
   );
 }
 
-function RouteErrorFallback({ error }: { error: Error }) {
-  return (
-    <div className="flex min-h-[50vh] flex-col items-center justify-center gap-4 p-8 text-center">
-      <div className="space-y-2">
-        <h2 className="text-2xl font-bold">Something went wrong</h2>
-        <p className="text-muted-foreground max-w-md">{error.message}</p>
-      </div>
-      <button
-        type="button"
-        onClick={() => window.location.reload()}
-        className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-      >
-        Reload page
-      </button>
-    </div>
-  );
-}

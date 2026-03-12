@@ -50,6 +50,8 @@ FILES=(
   apps/server/package.json
   apps/server/src/index.ts
   apps/dashboard/package.json
+  apps/server/.env.example
+  docker-compose.yml
 )
 
 for f in "${FILES[@]}"; do
@@ -108,12 +110,19 @@ fi
 # Remove CTA metadata if present
 rm -f apps/web/.cta.json
 
+# Generate BETTER_AUTH_SECRET in .env.example
+SECRET=$(openssl rand -base64 32)
+sed -i '' "s/BETTER_AUTH_SECRET=your-secret-key-min-32-chars/BETTER_AUTH_SECRET=${SECRET}/" apps/server/.env.example
+echo "  generated BETTER_AUTH_SECRET"
+
 # Clean up this init script
 rm -f init.sh
 
 # Re-init git
 rm -rf .git
 git init
+git add -A
+git commit -m "Initial commit from dyz-bunstack template"
 echo "  initialized git"
 
 # Reinstall to regenerate lockfile
@@ -124,6 +133,9 @@ echo "Done! Project '$NAME' is ready."
 if [ "$MULTI_TENANT" = true ]; then
   echo "  Multi-tenancy: enabled"
 fi
+echo ""
+echo "Next steps:"
+echo "  git remote add origin <your-repo-url>"
+echo "  make setup        — copy .env, start Docker (Postgres + MinIO), push schema, seed DB"
 echo "  make dev          — start web + server"
 echo "  make dev-all      — start all apps"
-echo "  make install      — install dependencies"

@@ -1,4 +1,4 @@
-.PHONY: setup dev dev-web dev-server dev-dashboard dev-all build install db-generate db-migrate db-push db-studio db-seed db-up db-down
+.PHONY: setup dev dev-web dev-server dev-dashboard dev-all build install check module db-generate db-migrate db-push db-studio db-seed db-up db-down reset logs
 
 # First-time project setup
 setup:
@@ -62,6 +62,16 @@ build:
 install:
 	bun install
 
+module:
+	@./scripts/generate-module.sh $(name) --app=$(or $(app),web)
+
+check:
+	bun --filter @dyz-bunstack-app/web typecheck
+	bun --filter @dyz-bunstack-app/web check
+	bun --filter @dyz-bunstack-app/dashboard typecheck
+	bun --filter @dyz-bunstack-app/dashboard check
+	bun --filter @dyz-bunstack-app/server typecheck
+
 # >>BACKEND
 # Database
 db-up:
@@ -84,4 +94,13 @@ db-studio:
 
 db-seed:
 	bun --filter @dyz-bunstack-app/server db:seed
+
+reset:
+	docker compose down -v
+	docker compose up -d --wait
+	$(MAKE) db-push
+	$(MAKE) db-seed
+
+logs:
+	docker compose logs -f
 # <<BACKEND

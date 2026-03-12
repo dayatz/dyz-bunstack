@@ -1,3 +1,4 @@
+import { env } from "#/lib/env";
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { auth } from "#/auth";
@@ -24,7 +25,7 @@ const app = new Elysia()
   .use(uploadRoutes)
   .use(healthRoutes)
   .get("/", () => ({ message: "dyz-bunstack API" }))
-  .listen(Number(process.env.PORT) || 3001);
+  .listen(env.PORT);
 
 log.success(`Server running at ${app.server?.url}`);
 

@@ -20,13 +20,14 @@ Need organization-based multi-tenancy? Add the flag:
 `init.sh` will:
 - Replace all `dyz-bunstack` references with your project name
 - Configure multi-tenancy (if `--with-multi-tenant` is passed)
-- Re-init git and reinstall dependencies
+- Generate a `BETTER_AUTH_SECRET` in `.env.example`
+- Re-init git with an initial commit and reinstall dependencies
 
 `make setup` will:
 - Install dependencies
 - Initialize react-grab in all frontend apps
 - Copy `.env.example` to `.env` (if not exists)
-- Start PostgreSQL container
+- Start Docker containers (PostgreSQL + MinIO)
 - Push database schema
 - Seed demo accounts
 
@@ -96,6 +97,15 @@ Specialist agents in `.claude/agents/` for use with [Claude Code](https://claude
 | `/ui` | sonnet | shadcn component management, exports, icon replacement |
 | `/reviewer` | sonnet | Convention compliance checks before committing |
 
+## Scaffold a Feature Module
+
+```bash
+make module name=posts app=web         # frontend module
+make module name=posts app=dashboard   # dashboard module
+make module name=posts app=server      # backend routes + service
+make module name=posts app=all         # all three
+```
+
 ## Commands
 
 | Command            | Description                          |
@@ -106,10 +116,14 @@ Specialist agents in `.claude/agents/` for use with [Claude Code](https://claude
 | `make dev-server`  | Server only                          |
 | `make dev-dashboard` | Dashboard only                     |
 | `make install`     | Install dependencies                 |
-| `make db-up`       | Start PostgreSQL container           |
-| `make db-down`     | Stop PostgreSQL container            |
+| `make check`       | Typecheck + lint all apps            |
+| `make module`      | Scaffold a feature module            |
+| `make db-up`       | Start Docker containers              |
+| `make db-down`     | Stop Docker containers               |
 | `make db-push`     | Push schema to DB                    |
 | `make db-generate` | Generate Drizzle migrations          |
 | `make db-migrate`  | Run Drizzle migrations               |
 | `make db-studio`   | Open Drizzle Studio                  |
 | `make db-seed`     | Seed demo accounts                   |
+| `make reset`       | Nuke DB + re-push schema + re-seed   |
+| `make logs`        | Tail Docker container logs           |
