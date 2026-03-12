@@ -299,6 +299,19 @@ Reusable hooks not tied to any feature (e.g. `useMediaQuery`, `useDebounce`).
 - One hook per file, named `use-{name}.ts`
 - Import as `import { useDebounce } from "#/hooks/use-debounce"`
 
+## Tools
+
+### RTK (Rust Token Killer)
+Always use [RTK](https://github.com/rtk-ai/rtk) for all CLI operations. RTK is a token-optimized CLI proxy that saves 60-90% on dev operations. All shell commands are automatically rewritten via Claude Code hooks (`git status` → `rtk git status`). Use `rtk gain` to check savings.
+
+### Serena MCP
+Always use Serena MCP tools for code exploration and editing when available. Prefer Serena's symbolic tools (`find_symbol`, `get_symbols_overview`, `replace_symbol_body`, etc.) over reading entire files. This enables token-efficient, precise code navigation and modification.
+
+- Use `get_symbols_overview` to understand file structure before diving in
+- Use `find_symbol` with `include_body=True` only for symbols you need to read
+- Use `replace_symbol_body` for precise edits instead of full-file rewrites
+- Use `find_referencing_symbols` to understand call sites before refactoring
+
 ## Skills
 
 Before making code changes, invoke the relevant skill:

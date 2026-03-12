@@ -72,6 +72,30 @@ import { Button, Input } from "@dyz-bunstack-app/ui";
 <Button>Submit</Button>
 ```
 
+## Claude Code Agents
+
+Specialist agents in `.claude/agents/` for use with [Claude Code](https://claude.com/claude-code).
+
+### Feature workflow
+
+```
+/researcher  →  /ux  →  /feature
+   (facts)     (design)   (build)
+```
+
+### All agents
+
+| Agent | Model | Purpose |
+|-------|-------|---------|
+| `/researcher` | opus | Gathers codebase context, maps dependencies, produces research brief |
+| `/ux` | opus | Designs layouts, user flows, component specs, accessibility |
+| `/feature` | opus | Full-stack implementation across all layers |
+| `/frontend` | sonnet | React components, routing, data fetching (preloads vercel-react-best-practices) |
+| `/backend` | sonnet | ElysiaJS routes, middleware, auth (preloads elysiajs skill) |
+| `/db` | sonnet | Drizzle schema, migrations, seeding, queries |
+| `/ui` | sonnet | shadcn component management, exports, icon replacement |
+| `/reviewer` | sonnet | Convention compliance checks before committing |
+
 ## Commands
 
 | Command            | Description                          |
