@@ -1,0 +1,3 @@
+@import "tailwindcss";
+@import "@dyz-bunstack-app/ui/globals.css";
+@source "../../../packages/ui/src/**/*.tsx";

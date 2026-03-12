@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "@dyz-bunstack-app/ui/globals.css";
+@plugin "@tailwindcss/typography";
+@source "../../../packages/ui/src/**/*.tsx";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
