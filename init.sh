@@ -38,24 +38,16 @@ SCOPE="${NAME}-app"
 
 echo "Initializing project: $NAME (scope: @${SCOPE})"
 
-# Files to find-and-replace in (order matters: scope first, then base name)
-FILES=(
-  package.json
-  CLAUDE.md
-  Makefile
-  packages/ui/package.json
-  packages/ui/GUIDE.md
-  apps/web/package.json
-  apps/web/index.html
-  apps/server/package.json
-  apps/server/src/index.ts
-  apps/dashboard/package.json
-  apps/server/.env.example
-  docker-compose.yml
-)
-
-for f in "${FILES[@]}"; do
-  if [ -f "$f" ]; then
+# Find-and-replace in all project files (scope first, then base name)
+find . -type f \
+  \( -name '*.ts' -o -name '*.tsx' -o -name '*.json' -o -name '*.css' \
+     -o -name '*.html' -o -name '*.md' -o -name '*.yml' -o -name '*.yaml' \
+     -o -name 'Makefile' \) \
+  -not -path '*/node_modules/*' \
+  -not -path '*/.git/*' \
+  -not -name 'bun.lock' \
+  -not -name 'init.sh' | while read -r f; do
+  if grep -q 'dyz-bunstack' "$f" 2>/dev/null; then
     sed -i '' "s/dyz-bunstack-app/${SCOPE}/g" "$f"
     sed -i '' "s/dyz-bunstack/${NAME}/g" "$f"
     echo "  updated $f"
